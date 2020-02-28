@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block title%}<title>Verificação da Eligibilidade - Banco da Saúde</title>{%endblock%}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'utentes/eligstyle.css' %}" type="text/css"></link>
+
+<div class="container" >
+	<div class="content-section">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Verificação da Eligibilidade</legend>
+				{% crispy form %}
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	window.onbeforeunload = function(e) {
+		 e = e || window.event;
+		 e = e.target || e.srcElement || e.activeElement;
+		if(e.activeElement.id!="submit-id-submit"){
+			var Ans = confirm("");
+       if(Ans==true)
+           return true;
+       else
+           return false;
+		 }
+   };
+</script>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% load templatehelpers %}
+
+{% block title%}<title>Consultar Farmácias - Banco da Saúde</title>{%endblock%}
+
+{% block head %}
+<script>
+    function updateGetUrl(param, value) {
+        var url = window.location.href;
+        if (url.indexOf())
+            if (url.indexOf('?') > -1) {
+                url += `&${param}=${value}`
+            } else {
+                url += `?${param}=${value}`
+            }
+        window.location.href = url;
+    }
+</script>
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/table_style.css' %}" type="text/css">
+{%endblock%}
+
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-section">
+    <h1>Consultar Farmácias</h1>
+    <hr>
+    <form id="ph_form" method="GET" style="margin-bottom:2vh;">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% crispy form %}
+            <button type="submit" class="btn btn-info" style="margin-right: 0.5rem;"><i class="fas fa-search"></i>
+                Procurar</button>
+            <input type="reset" value="Nova Farmácia" class="btn btn-outline-info"
+                onClick='window.location.href = "/encomenda/farmacias/admin/create";' style="margin-right: 0.5rem;" />
+            <input type="reset" value="Reset" class="btn btn-outline-secondary"
+                onClick='window.location.href = "/encomenda/farmacias/admin";' style="margin-right: 0.5rem;" />
+
+
+        </fieldset>
+    </form>
+
+    <script>
+        var options = {
+            url: function (phrase) {
+                if (phrase !== "") {
+                    return "/encomenda/farmacias/api/nome_autocomplete?q=" + phrase;
+                } else {
+                    return "/encomenda/farmacias/api/nome_autocomplete";
+                }
+            },
+
+            getValue: "id",
+
+            listLocation: "results",
+
+            requestDelay: 300,
+
+            theme: "bootstrap",
+
+            list: {
+                showAnimation: {
+                    type: "fade", //normal|slide|fade
+                    time: 100,
+                    callback: function () {}
+                },
+
+                hideAnimation: {
+                    type: "slide", //normal|slide|fade
+                    time: 100,
+                    callback: function () {}
+                },
+
+                match: {
+                    enabled: true
+                },
+
+                onChooseEvent: function () {
+                    $("#ph_form").submit();
+                }
+            }
+        };
+
+        $("#id_nome").easyAutocomplete(options);
+        ["id_concelhos", "id_freguesias"].forEach((el) => {
+
+            if ($("#" + el).children().length <= 1) { //se tem menos q uma opcao
+                console.log(el);
+                $("#" + el).attr("readonly", "readonly");
+            }
+        });
+    </script>
+    {% if ph.page %}
+    {% render_table ph 'django_tables2/bootstrap-responsive.html' %}
+    <style>
+        .clickable-row:hover {
+            background-color: #c1c1c140;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".clickable-row").click(function () {
+                window.location = 'admin/' + $(this).attr("data-id");
+            });
+        });
+        // HACK table language
+        $("li.next > a").html('próximo<span aria-hidden="true">»</span>');
+        $("li.previous > a").html('<span aria-hidden="true">«</span>anterior');
+    </script>
+    {% endif %}
+
+
+</div>
+{% endblock %}

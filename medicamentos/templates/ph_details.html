@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block title%}<title>Editar Farmácias - Banco da Saúde</title>{%endblock%}
+
+{%block head%}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="{%static 'css/ph_autocomplete.css'%}">
+{%endblock%}
+
+
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="content-section">
+
+        <form method="post">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+        <!-- Modal -->
+        <div class="modal fade" id="apagar_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div id="modal_container" class="modal-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //inject html
+        fetch("{% url 'medicamentos:ph_manager' %}/delete/{{ object.pk }}").then((res) => {
+                return res.text();
+            })
+            .then((data) => {
+                $('#modal_container').html(data);
+            });
+    </script>
+    <script src="{%static 'js/ph_autocomplete.js'%}"></script>
+    {% endblock %}
+
+    {% block sidebar %}
+    {% endblock %}

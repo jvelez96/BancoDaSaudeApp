@@ -1,0 +1,71 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top custom-navbar">
+    <!-- Brand -->
+    <a class="navbar-brand" href="{% url 'homepage:bs-home' %}" id="navbar-logo">
+      <img src="{% static 'images/banco-saude-logo.png' %}"/>
+    </a>
+
+    <!-- Links -->
+    <ul class="navbar-nav custom-navbar-ul">
+        <!-- Dropdown -->
+        <li class="nav-item dropdown custom-navbar-item" id="first-ul-item">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Utentes
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'utentes:eligibility' %}">Registar Utente</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'utentes:consult_client' %}">Consultar Utentes</a>
+            </div>
+        </li>
+
+        <li class="nav-item custom-navbar-item">
+            <a class="nav-link" href="{% url 'medicamentos:begin_order' %}">Encomendar Medicamentos</a>
+        </li>
+
+        <li class="nav-item dropdown custom-navbar-item">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Área de Gestão
+            </a>
+            <div class="dropdown-menu">
+                <a class="nav-link" href="{% url 'medicamentos:order_search' %}">Encomendas</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link" href="{% url 'medicamentos:manage_stock' %}">Consultar Stock</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link" href="{% url 'medicamentos:ph_manager' %}">Consultar Farmácias</a>
+            </div>
+        </li>
+
+        <!--
+        <li class="nav-item custom-navbar-item">
+            <a class="nav-link" href="{% url 'medicamentos:order_search' %}">Consultar Encomendas</a>
+        </li>
+        <li class="nav-item custom-navbar-item">
+            <a class="nav-link" href="{% url 'medicamentos:ph_manager' %}">Consultar Farmácias</a>
+        </li>
+        -->
+
+        <li class="nav-item dropdown custom-navbar-item">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Dashboards
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'dashboards' %}">Indicadores de Gestão</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'billing_dashboard' %}">Gestão dos Custos</a>
+            </div>
+
+        </li>
+    </ul>
+
+    <ul class="nav navbar-nav ml-auto custom-login-navbar">
+        {% if user.is_authenticated %}
+            <li><a class="nav-link custom-login-button" href="{% url 'history' %}" role="button" id="first-login-ul-item"><span class="glyphicon glyphicon-user"></span>Histórico</a></li>
+            <li><a class="nav-link custom-login-button" href="{% url 'profile' %}" role="button"><span class="glyphicon glyphicon-user"></span> Perfil de {{ user.username }}</a></li>
+            <li><a class="nav-link custom-login-button" href="{% url 'logout' %}" role="button"><span class="glyphicon glyphicon-user"></span> Sair</a></li>
+        {% else %}
+            <li><a class="nav-link custom-login-button" href="{% url 'login' %}" role="button"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
+    </ul>
+
+</nav>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{%endblock%}
+{% block content %}
+<center> 
+        <h2>{{message}}</h2>
+     <div class="border-top pt-3">
+         <small class="text-muted">
+             <a href="{% url 'utentes:bs-home' %}">Página inicial</a>
+         </small>
+     </div></center>
+{% endblock %}

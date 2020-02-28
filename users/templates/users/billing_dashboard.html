@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block head %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block title%}<title>Dashboard de Custos - Banco da Saúde</title>{%endblock%}
+    
+{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+    <iframe width="1250px" height="1000px" src="https://datastudio.google.com/embed/reporting/1EU6uBcA0pYkwXf6hAL0iqcubmsR3cs6g/page/dizD"
+            frameborder="0" style="border:0" allowfullscreen>
+    </iframe>
+</div>
+{% endblock %}

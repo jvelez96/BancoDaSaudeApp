@@ -1,0 +1,15 @@
+# [START runtime]
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT mx3produto.wsgi
+
+
+env_variables:
+ DJANGO_SETTINGS_MODULE: 'mx3produto.settings'
+
+beta_settings:
+ cloud_sql_instances: bancodasaude:europe-west2:meds-pg
+
+runtime_config:
+  python_version: 3
+# [END runtime]

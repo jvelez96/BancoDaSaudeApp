@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% load templatehelpers %}
+
+{% block head %}
+<script>
+    // var ph_id = null;
+    // $(document).ready(function() {
+    //     var table = $('#ph_table').DataTable({
+    //     "language": {
+    //         "lengthMenu": "Mostrar _MENU_ por pagina",
+    //         "zeroRecords": "Nothing found - sorry",
+    //         "info": "Showing page _PAGE_ of _PAGES_",
+    //         "infoEmpty": "No records available",
+    //         "infoFiltered": "(filtered from _MAX_ total records)"
+    //     }
+    // });
+
+    //     $('#ph_table tbody').on( 'click', 'tr', function () {
+    //         if ( $(this).hasClass('selected') ) {
+    //             $(this).removeClass('selected');
+    //             if(!table.$('tr.selected').length){
+    //                 // no more selected
+    //                 $('#confirm_button').addClass('disabled');
+    //             }
+    //             // $("#confirm_input").attr('value','');
+
+    //             $("#"+$(this).attr("value")).remove();//remove ph from selected
+    //         }
+    //         else {
+    //             // table.$('tr.selected').removeClass('selected');
+    //             $(this).addClass('selected');
+    //             $('#confirm_button').removeClass('disabled');
+    //             // $("#confirm_input").attr('value',$(this).attr("value"));
+
+    //             $('<input>').attr({
+    //                 type: 'hidden',
+    //                 id: $(this).attr("value"),
+    //                 name: 'ph[]',
+    //                 value:$(this).attr("value"),
+    //             }).appendTo('#confirm_form');
+
+    //         }
+    //     } );
+
+    //     $('#button').click( function () {
+    //         table.row('.selected').remove().draw( false );
+    //     } );
+    // } );
+
+    function updateGetUrl(param,value){
+    var url = window.location.href;
+    if (url.indexOf())
+    if (url.indexOf('?') > -1){
+        url += `&${param}=${value}`
+    }else{
+        url += `?${param}=${value}`
+    }
+    window.location.href = url;
+}
+
+</script>
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/table_style.css' %}" type="text/css">
+{%endblock%}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="content-section">
+    <div style='display:flex;'>
+    <h1>Informação da Encomenda</h1>
+            <a href="{% url 'medicamentos:order_search' %}" style="flex:1;text-align:right;"><i class="fa fa-arrow-left" style="font-size:1.5em;"></i></a>
+  </div>
+{% if infoencomenda.page %}
+        {% render_table infoencomenda 'django_tables2/bootstrap-responsive.html' %}
+{% endif %}
+    </div>
+
+<div class="content-section">
+  <div style='display:flex;'>
+    <h1>Informação do Utente</h1>
+  </div>
+
+{% if infoutente.page %}
+        {% render_table infoutente 'django_tables2/bootstrap-responsive.html' %}
+{% endif %}
+</div>
+
+<div class="content-section">
+  <div style='display:flex;'>
+    <h1>Informação da Farmácia</h1>
+  </div>
+
+{% if infofarmacia.page %}
+        {% render_table infofarmacia 'django_tables2/bootstrap-responsive.html' %}
+{% endif %}
+</div>
+
+<div class="content-section">
+  <div style='display:flex;'>
+    <h1>Detalhes da Encomenda<i style="right:50%" data-toggle="popover" data-title="Instruções para cancelar a encomenda." data-trigger="hover"
+                               data-placement="bottom" data-content="Clique no X á direita para cancelar a Encomenda.">
+        <span style="color: Dodgerblue;" class="fas fa-info-circle"></span></i></h1>
+      <a href="{% url 'medicamentos:order_search' %}" style="flex:1;text-align:right;"><i class="fa fa-times" style="font-size:1.5em;"></i></a>
+  </div>
+    {% if ordermeds.page %}
+            {% render_table ordermeds 'django_tables2/bootstrap-responsive.html' %}
+    {% endif %}
+</div>
+
+{% endblock %}

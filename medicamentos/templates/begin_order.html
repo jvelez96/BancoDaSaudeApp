@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{%endblock%}
+
+{% block title%}<title>Encomendar Medicamentos - Banco da Saúde</title>{%endblock%}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<div class="content-section">
+    <form method="GET">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                <h1>Quer continuar a encomenda?</h1>
+            </legend>
+            <!-- <h5>A encomenda seguinte foi iniciada. </h5> -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <p><b>Utente Nif:</b>{{order.utente.nif}}</p>
+                    <p><b>Utente Niss:</b>{{order.utente.niss}}</p>
+                </div>
+            </div>
+
+            <input type='hidden' name='new_order' value='True' />
+            <button type="reset" class="btn btn-outline-info"
+                onClick='window.location.href = "{{redirect_url}}";'>Continuar</button>
+            <button type="submit" id="confirm_button" class="btn btn-outline-danger">Nova encomenda</button>
+
+
+
+    </form>
+</div>
+{% endblock %}

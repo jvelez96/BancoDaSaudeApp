@@ -1,0 +1,9 @@
+#ui-id-1{
+    overflow-y: auto;
+    max-height: 40vh;
+    padding-right: 1vw; 
+    /* for scrolling */
+}
+.topDiv{
+    width: 100%;
+}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{%endblock%}
+{% block content %}
+
+<div class="content-section">
+	<form method="POST">
+	    {% csrf_token %}
+	    <fieldset class="form-group">
+            <legend class="border-bottom mb-4"><h1>Confirme a encomenda</h1></legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p><b>Utente Nif:</b>{{order.utente.nif}}</p>
+                    <p><b>Utente Niss:</b>{{order.utente.niss}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <p><b>Farmácia:</b>{{order.pharmacy.nome}}</p>
+                    <p><b>Morada:</b>{{ order.pharmacy.address }},{{ order.pharmacy.localidade }} {{ order.pharmacy.postal_code }}</p>
+                    <p><b>Telefone:</b>{{order.pharmacy.phone}}</p>
+                </div>
+            </div>
+
+            <hr>
+            <table id="ph_table" class="table" border="0px" width="100%">
+                    <thead>
+                            <tr>
+                                    <th>Quantidade</th>
+                                    <th>Principio ativo</th>
+                                    <th>Dosagem</th>
+                                    <th>Embalagem</th>
+                            </tr>
+            
+                    </thead>
+                    <tbody>
+                        {%if order_details %}
+                        {% for d in order_details %}
+                        <tr>
+                            <td>{{ d.quantity }}</td>
+                            <td>{{ d.med.active_principle}}</td>
+                            <td>{{ d.med.dosage }}</td>
+                            <td>{{ d.med.packaging }}</td>
+                        </tr>
+                        {% endfor %}
+                        {%endif%}
+                    </tbody>
+                </table>
+            <hr>
+            <input type='hidden' name='done' value='True'/> 
+            <button  class="btn btn-outline-dark" type="reset" value="Reset" class="btn btn-secondary" onClick='window.location.href = "/encomenda/medicamentos";'>Anterior</button>
+            <button type="submit" id="confirm_button" class="btn btn-primary">Confirmar</button>
+            
+    </form>
+</div>
+{% endblock %}

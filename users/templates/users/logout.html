@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block bg %}
+	background="{% static 'backgrounds/LogOut.jpg' %}"
+{% endblock %}
+
+{% block title%}<title>Terminar Sessão - Banco da Saúde</title>{%endblock%}
+
+{% block content %}
+
+   <center> <h2>Saiu da sua conta com sucesso!</h2>
+       <hr>
+       <a href="{% url 'homepage:bs-home' %}" class="btn btn-outline-light">Página Principal<i class="fa fa-home"></i></a>
+    </center>
+{% endblock content %}

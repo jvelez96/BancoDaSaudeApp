@@ -1,0 +1,85 @@
+<manifest alg="2" build="2018.0.0.379" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="bancodasaude.org" resolutions="1x" timestamp="1553180489980">
+  <folder name="css">
+    <file name="site_global.css" crc="444006867"/>
+    <file name="index.css" crc="4205825091" ref="index"/>
+    <file name="nomq_index.css" crc="3803872494" ref="index"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="index"/>
+    <file name="museutils.js" crc="3803043152" ref="index"/>
+    <file name="whatinput.js" crc="86476730" ref="index"/>
+    <file name="museconfig.js" crc="380897831" ref="index"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="4148998990" ref="index"/>
+    <file name="jquery.watch.js" crc="99325471" ref="index"/>
+    <file name="jquery.musemenu.js" crc="3784699396" ref="index"/>
+    <file name="jquery.scrolleffects.js" crc="530399994" ref="index"/>
+    <file name="html5shiv.js" crc="4241844378" ref="index"/>
+    <file name="jquery.museresponsive.js" crc="3955820958" ref="index"/>
+    <file name="require.js" crc="4157109226" ref="index"/>
+  </folder>
+  <folder name="images">
+    <file name="favicon.ico" crc="150908549" ref="index"/>
+    <file name="design site-121.jpg" crc="34865664" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg-colado-1246x1107.svg" crc="33082556" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 1246x1107_poster_.png" crc="117504766" ref="index"/>
+    <file name="svg-colado-1368x158.svg" crc="439086929" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 1368x158_poster_.png" crc="4259076638" ref="index"/>
+    <file name="finais-05 copy.jpg" crc="216710702" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="finais-04.jpg" crc="358935836" ref="index">
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg-colado-38622x385.svg" crc="4282671378" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 38622x385_poster_.png" crc="3902482196" ref="index"/>
+    <file name="svg-colado-38622x3852.svg" crc="3962504221" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 38622x385_poster_2.png" crc="4081834715" ref="index"/>
+    <file name="svg-colado-385833x385.svg" crc="4282938783" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 385833x385_poster_.png" crc="276367486" ref="index"/>
+    <file name="svg-colado-173x172.svg" crc="4199505303" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 173x172_poster_.png" crc="3905144215" ref="index"/>
+    <file name="svg-colado-87224x65.svg" crc="526294799" seo="true" ref="index">
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="index" alt=""/>
+    </file>
+    <file name="svg colado 87224x65_poster_.png" crc="4113202605" ref="index"/>
+    <file name="design site-121-u142-fr.jpg" crc="4183255605" ref="index"/>
+    <file name="finais-05 copy-u1701-fr.jpg" crc="4024433597" ref="index"/>
+    <file name="finais-04-u1786-fr.jpg" crc="482643837" ref="index"/>
+    <file name="design site-121-u142-fr2.jpg" crc="3944208933" ref="index"/>
+    <file name="finais-05 copy-u1701-fr2.jpg" crc="345347297" ref="index"/>
+    <file name="finais-04-u1786-fr2.jpg" crc="4246800569" ref="index"/>
+    <file name="blank.gif" crc="4208392903" ref="index"/>
+  </folder>
+  <file name="index.html" crc="4251420627" seo="true" mt="1553180459128" redirect="true"/>
+</manifest>

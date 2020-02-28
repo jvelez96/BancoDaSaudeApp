@@ -1,0 +1,9 @@
+Bem vindo ao Banco da Saúde.
+Confirma-mos que foi registado com sucesso com os seguintes dados:
+Tipo de Identificação: $tipo_identificacao
+Número de Identificação: $numero_identificacao
+NIF: $nif
+NISS:   $niss
+Telemóvel:  $telemovel
+
+Caso deseje alterar alguma destas informações por favor dirija-se ao mesmo local onde se registou.

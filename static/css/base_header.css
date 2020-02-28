@@ -1,0 +1,44 @@
+nav a{
+  user-select: none;
+}
+
+.custom-navbar {
+  background-image: url(../images/navbar-background.png);
+  background-size: cover;
+}
+
+.custom-navbar-ul {
+  margin: 10px 10px 10px 20px;
+}
+
+.custom-navbar-item {
+  line-height: 50%;
+  border-left: 1px solid grey;
+  padding: 0 10px 0 10px;
+}
+
+.custom-login-navbar {
+  background-color: transparent;
+  margin-right: 40px;
+}
+
+.custom-login-button {
+  border-left: 1px solid grey;
+  padding: 0 10px 0 10px;
+}
+
+#first-ul-item {
+  border-left: none;
+  padding-left: -10px
+}
+
+#navbar-logo {
+  line-height: 150%;
+  border-right: 1px solid black;
+  padding: 0 50px 0 10px;
+  /*background-image: url(../images/banco-saude-logo.png);*/
+}
+
+#first-login-ul-item {
+  border-left: none;
+}

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export GOOGLE_APPLICATION_CREDENTIALS="./credentials/googlecloud_dev.json"
+
+./cloud_sql_proxy -instances="bancodasaude:europe-west2:meds-pg"=tcp:5450
+
+

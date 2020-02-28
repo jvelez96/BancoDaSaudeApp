@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% load templatehelpers %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/table_style.css' %}" type="text/css">
+{% endblock %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="content-section">
+        <div style='display:flex;'>
+            <h2>Stock do {{ warehouse.name }}</h2>
+            <a href="{% url 'medicamentos:manage_stock' %}" style="flex:1;text-align:right;"><i class="fa fa-arrow-left" style="font-size:1.5em;"></i></a>
+        </div>
+
+        {% if stock_table.page %}
+            {% render_table stock_table 'django_tables2/bootstrap-responsive.html' %}
+        {% else %}
+            <h3>Este armazém não tem medicamentos em Stock.</h3>
+        {% endif %}
+    </div>
+{% endblock %}

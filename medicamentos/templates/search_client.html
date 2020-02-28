@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title%}<title>Encomendar Medicamentos - Banco da Saúde</title>{%endblock%}
+
+{% block head %}
+<script>
+    function updateGetUrl(param, value) {
+        var url = window.location.href;
+        if (url.indexOf())
+            if (url.indexOf('?') > -1) {
+                url += `&${param}=${value}`
+            } else {
+                url += `?${param}=${value}`
+            }
+        window.location.href = url;
+    }
+</script>
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{% endblock %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="content-section">
+    <h1>Encomenda</h1>
+    <form method="GET">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% crispy form %}
+        </fieldset>
+    </form>
+
+</div>
+{% endblock %}

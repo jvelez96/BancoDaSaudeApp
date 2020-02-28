@@ -1,0 +1,17 @@
+main.container {margin-left:565px;}
+
+fieldset.form-group  {
+    margin-bottom: 20px;
+    width: 55%;
+    display: inline-block;
+}/* Espaço entre FORMS de Registo e Agrupadas lado a lado com tamanho reduzido os tais 45%  */
+
+    
+input.form-control{border-color:rgb(214, 227, 245); border-top:3px; border-left:3px;border-right:3px; box-shadow:none;border-radius:0px;}
+
+
+input:-webkit-autofill {
+    background-color: #FAFFBD !important;
+    background-image:none !important;
+    color: #000000 !important;
+  }

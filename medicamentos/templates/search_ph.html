@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title%}<title>Encomendar Medicamentos - Banco da Saúde</title>{%endblock%}
+
+{% block head %}
+<script>
+    var ph_id = null;
+    $(document).ready(function () {
+        var table = $('#ph_table').DataTable({
+            "searching": false,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ por página",
+                "zeroRecords": "Não foram encontradas Fármacias",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Não foram encontrados registos",
+                "paginate": {
+                    "first": "Primeiro",
+                    "last": "Ultimo",
+                    "next": "Próximo",
+                    "previous": "Anterior"
+                },
+
+            }
+        });
+
+        $('#ph_table tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                $('#confirm_button').addClass('disabled');
+                $("#confirm_input").attr('value', '');
+            } else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                $('#confirm_button').removeClass('disabled');
+                $("#confirm_input").attr('value', $(this).attr("value"));
+            }
+        });
+
+        $('#button').click(function () {
+            table.row('.selected').remove().draw(false);
+        });
+    });
+
+    function updateGetUrl(param, value) {
+        var url = window.location.href;
+        if (url.indexOf())
+            if (url.indexOf('?') > -1) {
+                url += `&${param}=${value}`
+            } else {
+                url += `?${param}=${value}`
+            }
+        window.location.href = url;
+    }
+
+    function confirm_order_delete() {
+        return confirm("Tem a certeza que pretende apagar a encomenda?");
+    }
+</script>
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{%endblock%}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-section">
+    <h1>Encomenda</h1>
+    <div style="display:flex;">
+        <h2>Informação do Utente</h2>
+        <form id="utente_form" style="flex:1;display: flex;">
+            {% csrf_token %}
+            <input type='hidden' name="utente_apagar" value="True" />
+            <a href="javascript:{}" onclick="if(confirm_order_delete())document.getElementById('utente_form').submit();"
+                style="flex:1;text-align:right;"><i class="fa fa-times" style="font-size:1.5em;"></i></a>
+        </form>
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <b>NIF</b>: {{ order.utente.nif }}
+        </div>
+        <div class="col-sm">
+            <b>NISS</b>: {{ order.utente.niss }}
+        </div>
+        <div class="col-sm">
+            <b>Telemóvel</b>: {{ order.utente.telemovel }}
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h1>Selecione a Farmácia</h1>
+    <hr>
+    <form id="ph_form" method="GET" style="margin-bottom:2vh;">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% crispy form %}
+            <button type="submit" class="btn btn-primary" style="margin-right: 0.5rem;"><i class="fas fa-search"></i>
+                Procurar</button>
+            <input type="reset" value="Reset" class="btn btn-secondary"
+                onClick='window.location.href = "/encomenda/farmacias";' />
+        </fieldset>
+    </form>
+
+    <script>
+        var options = {
+            url: function (phrase) {
+                if (phrase !== "") {
+                    return "/encomenda/farmacias/api/nome_autocomplete?q=" + phrase;
+                } else {
+                    return "/encomenda/farmacias/api/nome_autocomplete";
+                }
+            },
+
+            getValue: "id",
+
+            listLocation: "results",
+
+            requestDelay: 300,
+
+            theme: "bootstrap",
+
+            list: {
+                showAnimation: {
+                    type: "fade", //normal|slide|fade
+                    time: 100,
+                    callback: function () {}
+                },
+
+                hideAnimation: {
+                    type: "slide", //normal|slide|fade
+                    time: 100,
+                    callback: function () {}
+                },
+
+                match: {
+                    enabled: true
+                },
+
+                onChooseEvent: function () {
+                    $("#ph_form").submit();
+                }
+            }
+        };
+
+        $("#id_nome").easyAutocomplete(options);
+        ["id_concelhos", "id_freguesias"].forEach((el) => {
+
+            if ($("#" + el).children().length <= 1) { //se tem menos q uma opcao
+                console.log(el);
+                $("#" + el).attr("readonly", "readonly");
+            }
+        });
+    </script>
+    {% if ph %}
+
+    <table id="ph_table" class="table" border="0px" width="100%">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Morada</th>
+                <th>Número de Telemóvel</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for k in ph %}
+            <tr class="clickable-row" value="{{k.pharmacy_id}}">
+                <td>{{ k.nome }}</td>
+                <td>{{ k.address }},{{ k.localidade }} {{ k.postal_code }}</td>
+                <td>{{ k.phone }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input id="confirm_input" type='hidden' name='ph' value='' />
+        <button type="submit" id="confirm_button" class="btn btn-outline-dark disabled">Confirmar</button>
+    </form>
+    {% endif %}
+
+
+</div>
+{% endblock %}

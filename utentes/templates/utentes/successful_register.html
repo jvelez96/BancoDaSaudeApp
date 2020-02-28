@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+   <center> 
+       <h2>O Utente registado no Banco da Saúde com sucesso!</h2>
+        <p> A partir de agora o Utente já pode requisitar medicamentos com receita médica.</p>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'homepage:bs-home' %}">Dirija-se à Página inicial</a>
+        </small>
+    </div></center>
+{% endblock content %}

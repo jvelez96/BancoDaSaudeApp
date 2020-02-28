@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<h1 style="margin-left:30px">{{ title }}</h1>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<div class="container">
+    <div class="content-section">
+
+        <form method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+				{% crispy form %}
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+
+
+    <script language="JavaScript">
+        const UL_ID = "postalCodesList";
+
+        function updatePostalCodes(){
+            console.log("entrei");
+            let ul = document.getElementById(UL_ID);
+            let str = "";
+            let list = ul.getElementsByTagName("li");
+
+            for (let i = 0; i< list.length-1; i++)
+                str += list[i].id + ",";
+
+            str += list[list.length-1].id;
+
+            document.getElementById("id_postal_codes").value = str;
+        }
+
+        function addLi(ul,postalcode){
+            let closeBtn = "<button onclick=\"removeItem(this);\" type=\"button\" class=\"close\" aria-label=\"Close\">\n" +
+                                "  <span aria-hidden=\"true\">&times;</span>\n" +
+                            "</button>";
+            let li = document.createElement("li");
+            li.setAttribute('id',postalcode);
+            li.innerHTML = postalcode + closeBtn;
+            ul.appendChild(li);
+        }
+
+        function addItem(){
+	        let ul = document.getElementById(UL_ID);
+            let candidate = document.getElementById("textCodigopostal");
+            addLi(ul,candidate.value);
+            candidate.value = "";
+            updatePostalCodes();
+        }
+
+        function removeItem(elm){
+	        let ul = elm.parentElement.parentElement;
+            let li = elm.parentElement;
+            ul.removeChild(li);
+            updatePostalCodes();
+        }
+
+        function loadPostalCodes() {
+            let ul = document.createElement("ul");
+            ul.id = UL_ID;
+            let listOfPostalCodes = document.getElementById("id_postal_codes").value.split(",");
+
+            listOfPostalCodes.forEach(function(postalcode) {
+                addLi(ul, postalcode);
+            });
+            document.getElementById("ListOfPostalCodes").appendChild(ul);
+        }
+
+        loadPostalCodes();
+    </script>
+
+{% endblock %}

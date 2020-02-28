@@ -1,0 +1,1 @@
+<soapenv:Envelope xmlns:govx="http://GovX.Service.Inventory" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Header><soapenv:Body><mx3:orderOperation><mx3:Pharmacy_ID>22231</mx3:Pharmacy_ID></mx3:orderOperation></soapenv:Body></soapenv:Header></soapenv:Envelope>

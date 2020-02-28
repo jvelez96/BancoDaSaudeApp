@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+{%block head%}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="{%static 'css/ph_autocomplete.css'%}">
+{%endblock%}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="content-section">
+        <form method="GET">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {% crispy form %}
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+<script src="{%static 'js/ph_autocomplete.js'%}"></script>
+<!-- <script>
+    var options = {
+        url: function (phrase) {
+            if (phrase !== "") {
+                return "/encomenda/farmacias/api/freguesia_autocomplete?q=" + phrase;
+            } else {
+                return "/encomenda/farmacias/api/freguesia_autocomplete";
+            }
+        },
+
+        getValue: "id",
+
+        listLocation: "results",
+
+        requestDelay: 300,
+
+        theme: "bootstrap",
+
+        list: {
+            showAnimation: {
+                type: "fade", //normal|slide|fade
+                time: 100,
+                callback: function () {}
+            },
+
+            hideAnimation: {
+                type: "slide", //normal|slide|fade
+                time: 100,
+                callback: function () {}
+            },
+
+            match: {
+                enabled: true
+            },
+
+            onChooseEvent: function () {
+                alert('choise');
+            }
+        }
+    };
+
+    $("#id_freguesia").easyAutocomplete(options);
+
+    // chrome autofill estraga usabilidade, hack.....
+    $("input").attr("autocomplete","new-password");
+</script> -->
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

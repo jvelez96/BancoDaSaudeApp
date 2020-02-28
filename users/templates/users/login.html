@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block bg %}
+	background="{% static 'backgrounds/SignUp.jpg' %}"
+{% endblock %}
+
+{% block title%}<title>Iniciar Sessão - Banco da Saúde</title>{%endblock%}
+
+{% block content %}
+
+<div class="content-section">
+	<form method="POST">
+	    {% csrf_token %}
+	    <fieldset class="form-group">
+	        <legend class="border-bottom mb-4"><h1>Efetue aqui o seu Log In</h1></legend>
+	        {{ form|crispy }}
+	    </fieldset>
+	    <div class="form-group">
+	        <button class="btn btn-outline-info" type="submit">Login</button>
+	    </div>
+        <small class="text-muted ml-2">
+            <a href="{% url 'password_reset' %}">Esqueceu-se da palavra chave?</a>
+        </small>
+	</form>
+	<div class="border-top pt-3">
+	    <small class="text-muted">
+	        Não tem conta? <a class="ml-2" href="{% url 'register' %}">Registe-se Agora!</a>
+	    </small>
+	</div>
+</div>
+{% endblock %}

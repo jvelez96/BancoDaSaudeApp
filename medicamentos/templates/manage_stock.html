@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% load templatehelpers %}
+
+{% block head %}
+<script>
+
+    function updateGetUrl(param,value){
+    var url = window.location.href;
+    if (url.indexOf())
+    if (url.indexOf('?') > -1){
+        url += `&${param}=${value}`
+    }else{
+        url += `?${param}=${value}`
+    }
+    window.location.href = url;
+
+
+}
+</script>
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/table_style.css' %}" type="text/css">
+{%endblock%}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-section">
+    <h1>Consultar Stock <i style="right:50%" data-toggle="popover"  data-trigger="hover"
+                               data-placement="bottom" data-content="Procure os armazéns e o seu respetivo stock">
+        <span style="color: Dodgerblue;" class="fas fa-info-circle"></span></i></h1>
+    <hr>
+    <form id="order_form" method="GET" style="margin-bottom:2vh;">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {% crispy form %}
+                <button type="submit" class="btn btn-info" style="margin-right: 0.5rem;"><i class="fas fa-search"></i>
+                    Procurar</button>
+                <input type="reset" value="Reset" class="btn btn-outline-secondary" onClick='window.location.href = "/encomenda/farmacias/admin";'style="margin-right: 0.5rem;" />
+
+
+            </fieldset>
+    </form>
+
+    {% if stock_table.page  %}
+        <h2>Stock de
+            {% if prod_w %}
+                {{ prod_w.warehouse.name }}
+            {% elif prod_m %}
+                {{ prod_m.med.active_principle }}
+            {% endif %}
+        </h2>
+        {% render_table stock_table 'django_tables2/bootstrap-responsive.html' %}
+    {% endif %}
+
+    {% if warehouses.page %}
+        <h2>Armazéns
+            {% if wh_region %}
+               em {{ wh_region.district.nome }}
+            {% elif wh_owner %}
+                {{ wh_owner.owner.company_name }}
+            {% endif %}
+        </h2>
+        {% render_table warehouses 'django_tables2/bootstrap-responsive.html' %}
+        <style>
+            .clickable-row:hover {
+                background-color: #c1c1c140;
+            }
+        </style>
+
+        <script>
+            $(document).ready(function () {
+                $(".clickable-row").click(function () {
+                    window.location = 'admin/'+$(this).attr("data-id");
+                });
+            });
+            // HACK table language
+            //$("li.next > a").html('próximo<span aria-hidden="true">»</span>');
+            //$("li.previous > a").html('<span aria-hidden="true">«</span>anterior');
+
+        </script>
+    {% endif %}
+    <script>
+            var options = {
+                url: function (phrase) {
+                    if (phrase !== "") {
+                        return "/encomenda/medicamentos/api/autocomplete/?q=" + phrase;
+                    } else {
+                        return "/encomenda/medicamentos/api/autocomplete";
+                    }
+                },
+
+                getValue: "id",
+
+                // ajaxSettings: {
+                //     dataType: "jsonp"
+                // },
+
+                listLocation: "results",
+
+                requestDelay: 300,
+
+                theme: "bootstrap",
+
+                list: {
+                    showAnimation: {
+                        type: "fade", //normal|slide|fade
+                        time: 50,
+                        callback: function () {
+                        }
+                    },
+
+                    hideAnimation: {
+                        type: "slide", //normal|slide|fade
+                        time: 50,
+                        callback: function () {
+                        }
+                    },
+
+                    match: {
+                        enabled: true
+                    },
+
+                    onChooseEvent: function () {
+                        $("#stock_form").submit()
+                    }
+                }
+            };
+
+            $("#id_medF").easyAutocomplete(options);
+         </script>
+</div>
+
+
+{% endblock %}

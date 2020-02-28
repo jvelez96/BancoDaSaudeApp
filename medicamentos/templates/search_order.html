@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% load templatehelpers %}
+
+{% block title%}<title>Encomendar Medicamentos - Banco da Saúde</title>{%endblock%}
+
+{% block head %}
+<script>
+    function updateGetUrl(param, value) {
+        var url = window.location.href;
+        if (url.indexOf())
+            if (url.indexOf('?') > -1) {
+                url += `&${param}=${value}`
+            } else {
+                url += `?${param}=${value}`
+            }
+        window.location.href = url;
+
+
+    }
+</script>
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/table_style.css' %}" type="text/css">
+{%endblock%}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-section">
+    <h1>Consultar Encomendas<i style="right:50%" data-toggle="popover" data-title="Instruções para a Pesquisa"
+            data-trigger="hover" data-placement="bottom"
+            data-content="Pode introduzir valores nos campos abaixo para filtrar as Encomendas.">
+        <span style="color: Dodgerblue;" class="fas fa-info-circle"></span></i></h1>
+    <hr>
+    <form id="order_form" method="GET" style="margin-bottom:2vh;">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% crispy form %}
+            <button type="submit" class="btn btn-info" style="margin-right: 0.5rem;"><i class="fas fa-search"></i>
+                Procurar</button>
+
+
+        </fieldset>
+    </form>
+
+
+    <script>
+        function changeLabel(atChanged, value) {
+            var choices_dict = {
+                "1": "NISS",
+                "2": "NIF",
+                "3": "Número de Identificação"
+            }
+            var label;
+            if (atChanged == 1) {
+                label = $('label[for="id_id_utente"]');
+                label.text("" + choices_dict[value] + " do Utente:");
+            }
+            localStorage.setItem("label", "" + choices_dict[value] + " do Utente:")
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".clickable-row").click(function () {
+                window.location = 'admin/' + $(this).attr("data-id");
+            });
+        });
+    </script>
+    {% if order.page %}
+    {% render_table order 'django_tables2/bootstrap-responsive.html' %}
+    {% endif %}
+
+
+</div>
+{% endblock %}

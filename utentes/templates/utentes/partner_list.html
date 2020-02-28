@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <h1>Lista Parceiros</h1>
+
+    {% if partner_list %}
+    <ul>
+
+      {% for partner in partner_list %}
+      <li>
+        <a href="{{ partner.get_absolute_url }}">{{ partner.name }}</a> ({{partner.name}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no books in the library.</p>
+    {% endif %}
+
+{% endblock %}

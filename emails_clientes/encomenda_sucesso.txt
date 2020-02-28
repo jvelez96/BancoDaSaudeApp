@@ -1,0 +1,7 @@
+Confirmamos que a seguinte encomenda foi realizada com sucesso:
+
+Utente com NIF: $nif
+
+Para a farmácia: $farmacia em $local_farmacia
+
+Com os seguintes medicamentos:

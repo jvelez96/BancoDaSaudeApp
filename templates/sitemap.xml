@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://bancodasaude.org/index.html</loc>
+    <lastmod>2019-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-1246x1107.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-1368x158.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-38622x385.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-38622x3852.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-385833x385.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-173x172.svg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>http://bancodasaude.org/images/svg-colado-87224x65.svg</image:loc>
+    </image:image>
+  </url>
+</urlset>

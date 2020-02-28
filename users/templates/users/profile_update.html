@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block title%}<title>Atualizar Perfil - Banco da Saúde</title>{%endblock%}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user_edit.profile.image.url }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user_edit.username }}</h2>
+                <p class="text-secondary">{{ user_edit.email }} </p>
+            </div>
+        </div>
+        <form method="POST">{% csrf_token %}
+
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Atualize a informação do seu perfil</legend>
+                {{ user_form|crispy }}
+			</fieldset>
+
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Atualizar</button>
+			</div>
+		</form>
+    </div>
+    
+{% endblock %}

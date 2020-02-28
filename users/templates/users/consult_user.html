@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+{% load widget_tweaks %}
+
+{% load templatehelpers %}
+
+{% block head %}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/auditstyle.css' %}" type="text/css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'utentes/consultstyle.css' %}" type="text/css">
+
+    <script>
+
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results == null) {
+                return null;
+            }
+            return decodeURI(results[1]) || 0;
+        };
+
+        $(document).ready(function () {
+            $('#card_options').val('{{cartao_filter }}');
+
+            $(".clickable-row").click(function () {
+                window.location = $(this).attr("data-id");
+            });
+        });
+
+        var nr_page = $.urlParam('nr_pages');
+        let op_list = [10, 25, 50, 100];
+        if (nr_page) {
+            $("#page_options option")[op_list.indexOf(parseInt(nr_page))].selected = true;
+        } else {
+            $("#page_options option")[op_list.indexOf(25)].selected = true;
+        }
+
+
+        let search_query = "{{search_query}}";
+        console.log(search_query);
+        if (search_query) {
+            $("#search_input").attr("value", search_query);
+        }
+
+
+    </script>
+
+{% endblock %}
+
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+
+{% block content %}
+
+    {% if user.is_staff and export_alert%}
+        <div align="center">
+            <div class="alert alert-danger alert-dismissible fade show">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Não existem utentes com cartões por pedir.
+            </div>
+        </div>
+    {% endif %}
+    <div class="main-container">
+        <div class="row search_row">
+            <div class="col-3">
+                <label class="above_table_label">
+                    <div class="search_text">Mostrar</div>
+                    <select id="page_options" onchange="location = this.value;" aria-controls="dtOrderExample"
+                            class="margin_h custom-select custom-select-sm form-control form-control-sm search_bar">
+                        <option value="{% relative_url '10' 'nr_pages' request.GET.urlencode %}">10</option>
+                        <option value="{% relative_url '25' 'nr_pages' request.GET.urlencode %}">25</option>
+                        <option value="{% relative_url '50' 'nr_pages' request.GET.urlencode %}">50</option>
+                        <option value="{% relative_url '100' 'nr_pages' request.GET.urlencode %}">100</option>
+                    </select>
+                    <div style="width: 100%" class="search_text">por página</div>
+                </label>
+            </div>
+            <div class="col-6">
+                <label class="above_table_label ">
+                    <!-- Procurar: -->
+                    <form method="get" class="margin_h row">
+                        <input type="search" class="form-control form-control-sm search_bar col " id="search_input"
+                               placeholder="Procurar por Username, Nome, ..."
+                               aria-controls="dtOrderExample" name="search">
+                        <input type="submit" class="btn btn-outline-info butn submit-butn" value="Procurar">
+                    </form>
+                </label>
+            </div>
+        </div>
+
+        <div class="table">
+
+            {% if istekler.page %}
+
+                {% render_table istekler 'django_tables2/bootstrap-responsive.html' %}
+
+                <style>
+
+                </style>
+            {% else %}
+                <div class="jumbotron">
+                    <h1>Não foi encontrado nada...</h1>
+                </div>
+            {% endif %}
+
+
+        </div>
+
+    </div>
+{% endblock %}
+
+

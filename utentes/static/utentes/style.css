@@ -1,0 +1,86 @@
+body{
+	background-color:rgb(251, 251, 251);
+	font-family: 'Lato', sans-serif;
+}/*background color */
+
+.navbar-nav > .nav-item > a {
+position: relative; 
+}
+
+nav.navbar.navbar-expand-md.navbar-dark.bg-steel.fixed-top
+ {
+	background-color:white;
+    -webkit-box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.1);
+	
+} /*search  */
+
+.navbar-nav>li>a {
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	font-weight: 600;
+	color:#7d7d7d;
+
+} /*navbarmenu */
+
+label.col-form-label.requiredField {text-transform: uppercase;}
+
+
+.dropdown-menu>li>a {
+	font-family: 'Roboto', sans-serif;
+	
+}/* dropdow menu */
+
+.navbar-brand {
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+
+}/* titulo BANCO DA SAUDE*/
+
+.dropdown-menu {border:none;}
+
+
+button.btn.btn-default {color:#7d7d7d}
+
+button.btn.btn-default:hover:active:focus {background-color:white;}
+.col-md-8, h1{color:#337ab7;}
+
+input.form-control{border-color:rgb(214, 227, 245); border-top:3px; border-left:3px;border-right:3px; box-shadow:none;border-radius:0px;background-color:#fbfbfb;}
+
+input.form-control:hover{border-color:rgb(146, 179, 224); border-top:3px; border-left:3px;border-right:3px; box-shadow:none;border-radius:0px;}
+
+input.form-control:focus{border-color:#337ab7; border-top:1px; border-left:1px;border-right:1px; box-shadow:none;border-radius:0px;}
+
+button.btn.btn-default{border:none;}
+
+
+
+
+      tr:nth-of-type(odd) {
+      background-color:rgb(252, 252, 252);
+    }
+
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+
+
+

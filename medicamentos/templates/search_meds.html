@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css">
+{% endblock %}
+
+{% block title%}<title>Encomendar Medicamentos - Banco da Saúde</title>{%endblock%}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-section">
+    <h1>Encomenda</h1>
+    <div style="display:flex;">
+        <h2>Informação do Utente</h2>
+        <form id="utente_form" style="flex:1;display: flex;">
+            {% csrf_token %}
+            <input type='hidden' name="utente_apagar" value="True" />
+            <a href="javascript:{}" onclick="if(confirm_order_delete())document.getElementById('utente_form').submit();"
+                style="flex:1;text-align:right;"><i class="fa fa-times" style="font-size:1.5em;"></i></a>
+        </form>
+
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <b>NIF</b>: {{ order.utente.nif }}
+        </div>
+        <div class="col-sm">
+            <b>NISS</b>: {{ order.utente.niss }}
+        </div>
+        <div class="col-sm">
+            <b>Telemóvel</b>: {{ order.utente.telemovel }}
+        </div>
+    </div>
+</div>
+
+{% if modal %}
+<script>
+    $(document).ready(function () {
+        $('#myModal').modal('show');
+    });
+</script>
+<form action="{% url 'medicamentos:meds_search' %}" method="get">
+    {% csrf_token %}
+    <div class="modal fade " data-backdrop="true" tabindex="-1" style="display: block; top:200px;" id="myModal"
+        role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tem a certeza?</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="$('.modal').hide()"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Pertende efectuar a encomenda sem os medicamentos que estão sem stock?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-danger"
+                        onclick="$('.modal').hide()">Cancelar
+                    </button>
+                    <input type='hidden' name="modal" value="True" />
+                    <input type='hidden' name="confirmar" value="True" />
+                    <input class="btn btn-outline-info" type="submit" value="Confirmar">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endif %}
+<div class="content-section">
+    <div style="display:flex;">
+        <h2>Farmácia</h2>
+        <a href="{% url 'medicamentos:ph_search' %}" style="flex:1;text-align:right;"><i class="far fa-edit"
+                style="font-size:1.5em;"></i></a>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <b>Farmácia:</b>{{ order.pharmacy.nome }}
+        </div>
+        <div class="col-sm">
+            <b>Morada:</b>{{ order.pharmacy.address }},{{ order.pharmacy.localidade }} {{ order.pharmacy.postal_code }}
+        </div>
+        <div class="col-sm">
+            <b>Telefone:</b>{{ order.pharmacy.phone }}
+        </div>
+    </div>
+</div>
+
+
+<div class="content-section">
+    <form id="med_ph" method="GET">
+        <fieldset class="form-group">
+            <h2>Selecionar Medicamentos <i style="right:50%" data-toggle="popover" data-title="Instruções para o Scan"
+                    data-trigger="hover" data-placement="bottom"
+                    data-content="Para fazer scan do código de barras ou QR de um medicamento, clique no campo princípio ativo, faça o scan, e preencha o campo quantidade."><span
+                        style="color: Dodgerblue;" class="fas fa-info-circle"></span></i></h2>
+            {% crispy form %}
+            <input type="submit" hidden name="" value="" />
+            <button type="submit" class="btn btn-primary" style="margin-right: 0.5rem;" name="adicionar" value="True"><i
+                    class="fas fa-plus"></i> Adicionar Medicamento
+            </button>
+            <!-- Modal -->
+            <!--
+               <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                       <div id="modal_container" class="modal-content">
+
+                       </div>
+                   </div>
+               </div>
+               -->
+    </form>
+
+    <hr>
+    <table class="table table-hover table-bordered text-center">
+        {% if order_detail %}
+        <tr class="text-center">
+            <th>Nº</th>
+            <th>Princípio Ativo</th>
+            <th>Dosagem</th>
+            <th>Forma Farmacêutica</th>
+            <th>Embalagem</th>
+            <th>Preço por Unidade</th>
+            <th>Quantidade</th>
+            <th>Em Armazém</th>
+        </tr>
+        {% endif %}
+        {% for k in order_detail %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ k.med.active_principle }}</td>
+            <td>{{ k.med.dosage }}</td>
+            <td>{{ k.med.farmaceutical_form }}</td>
+            <td>{{ k.med.packaging }} unidades</td>
+            <td>{{ k.med.preco }} €</td>
+            <td>{{ k.quantity }}</td>
+            <td>
+                {% if k.med.quantity_stock %}
+                <i class="fas fa-check" style="color: Green;"></i>
+                {% else %}
+                <i class="fas fa-times" style="color: Red;"></i>
+                {% endif %}
+            </td>
+            <td>
+                <span class="pull-right">
+
+                    <a href="{% url 'medicamentos:med_delete' k.id %}" data-balloon="remove this item from cart"
+                        class="text-danger" onclick="return confirm_delete();">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    <!--
+                    <button type="button" data-toggle="modal" data-target="#delete_modal"><i class="fas fa-trash"></button>
+                    -->
+                </span>
+            </td>
+        </tr>
+        {% empty %}
+        <p> Nenhum medicamento selecionado. </p>
+        {% endfor %}
+    </table>
+    <hr>
+    <!-- <button type="submit" class="btn btn-primary" style="margin-right: 0.5rem;"  name="ph" value="True"> Selecionar Farmácia</button> -->
+
+    <button type="submit" id="confirm_button" class="btn btn-outline-info" name="confirmar" value="True">Confirmar
+    </button>
+</div>
+<script>
+    //inject html
+    fetch("{% url 'medicamentos:meds_search' %}/delete/{{ k.pk }}").then((res) => {
+            return res.text();
+        })
+        .then((data) => {
+            $('#modal_container').html(data);
+        });
+
+    var options = {
+        url: function (phrase) {
+            if (phrase !== "") {
+                return "/encomenda/medicamentos/api/autocomplete/?q=" + phrase;
+            } else {
+                return "/encomenda/medicamentos/api/autocomplete";
+            }
+        },
+
+        getValue: "id",
+
+        // ajaxSettings: {
+        //     dataType: "jsonp"
+        // },
+
+        listLocation: "results",
+
+        requestDelay: 300,
+
+        theme: "bootstrap",
+
+        list: {
+            showAnimation: {
+                type: "fade", //normal|slide|fade
+                time: 50,
+                callback: function () {}
+            },
+
+            hideAnimation: {
+                type: "slide", //normal|slide|fade
+                time: 50,
+                callback: function () {}
+            },
+
+            match: {
+                enabled: true
+            },
+
+            onChooseEvent: function () {
+                $("#med_ph").submit()
+            }
+        }
+    };
+
+    $(document).ready(function () {
+        $("html,body").scrollTop(200);
+
+        if ($('#id_packaging').val().length != 0) {
+            $("#id_quantity").focus();
+        };
+    });
+
+    $("#id_act_principle").easyAutocomplete(options);
+
+
+    ["id_dosage", "id_farm_form", "id_packaging"].forEach((el) => {
+        if ($("#" + el).children().length <= 1) { //se tem menos q uma opcao
+            $("#" + el).attr("readonly", "readonly");
+        }
+    });
+</script>
+{% endblock %}
+
+{% block scripts %}
+
+{{ block.super }}
+<script>
+    function confirm_delete() {
+        return confirm("Tem a certeza que pretende remover este medicamento?");
+    }
+
+    function confirm_order_delete() {
+        return confirm("Tem a certeza que pretende apagar a encomenda?");
+    }
+</script>
+{% endblock scripts %}
+
+{% block footer %}
+{{ form.media }}
+{% endblock %}

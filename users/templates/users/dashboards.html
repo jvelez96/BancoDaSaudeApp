@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+{% load static %}
+{
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block title %} <title> Visão Geral - Banco da Saúde</title>{% endblock %}
+
+{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+    <iframe allowfullscreen width="1000px" height="1000px" class="dashboard-iframe"
+    frameborder="0"
+      src="https://datastudio.google.com/embed/reporting/1WrE_a00yIfLzfAyPKqpsCDCqmWx6NnSz/page/rQ6i" 
+    style="border:0">
+    </iframe>
+</div>
+{% endblock %}
